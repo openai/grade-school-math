@@ -21,12 +21,12 @@ def get_examples(split):
     return examples
 
 
-SOLN_RE = re.compile(r"#### (\-?[0-9\.\,]+)")
+ANS_RE = re.compile(r"#### (\-?[0-9\.\,]+)")
 INVALID_ANS = "[invalid]"
 
 
 def extract_answer(completion):
-    match = SOLN_RE.search(completion)
+    match = ANS_RE.search(completion)
     if match:
         match_str = match.group(1).strip()
         match_str = match_str.replace(",", "")
@@ -36,9 +36,9 @@ def extract_answer(completion):
 
 
 def is_correct(model_completion, gt_example):
-    gt_solution = extract_answer(gt_example["answer"])
-    assert gt_solution != INVALID_ANS
-    return extract_answer(model_completion) == gt_solution
+    gt_answer = extract_answer(gt_example["answer"])
+    assert gt_answer != INVALID_ANS
+    return extract_answer(model_completion) == gt_answer
 
 
 class GSMDataset(th.utils.data.Dataset):
