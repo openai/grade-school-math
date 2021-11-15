@@ -65,6 +65,8 @@ To view these results problem-by-problem, run:
 python view_model_solutions.py
 ```
 
+Note: These model-generated samples used a slightly older version of the calculator. Previous implementation bugs led to calculator failures in roughly 1% of model samples. Those issues have been fixed in the codebase, but since the samples have not been regenerated, occasional calculation errors are present.
+
 ## Citation
 
 Please use the below BibTeX entry to cite this dataset:

@@ -36,6 +36,7 @@ def use_calculator(sample):
     if "=" not in remaining:
         return None
     lhs = remaining.split("=")[0]
+    lhs = lhs.replace(",", "")
     if any([x not in "0123456789*+-/.()" for x in lhs]):
         return None
     return eval_with_timeout(lhs)
@@ -44,7 +45,7 @@ def use_calculator(sample):
 def sample(model, qn, tokenizer, device, sample_len):
     # Inefficient version of calculator sampling -- no batches, doesn't
     # cache activations from previous tokens
-    EQUALS_TOKENS = set([28, 796])
+    EQUALS_TOKENS = set([28, 796, 47505])
 
     for _ in range(sample_len):
         with th.no_grad():
@@ -60,7 +61,7 @@ def sample(model, qn, tokenizer, device, sample_len):
                 answer = use_calculator(text)
                 if answer is not None:
                     print("Triggered calculator, answer", answer)
-                    text = text + str(answer)
+                    text = text + str(answer) + ">>"
 
             qn = text
     return qn
